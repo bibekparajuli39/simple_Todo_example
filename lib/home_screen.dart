@@ -15,7 +15,28 @@ class HomeScreen extends ConsumerWidget {
         itemCount: item.length,
         itemBuilder: (context, index) {
           final currentItem = item[index];
-          return ListTile(title: Text(currentItem.name));
+          return ListTile(
+            title: Text(currentItem.name),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    ref
+                        .read(itemProvider.notifier)
+                        .updateItem(currentItem.id, "Bibeck");
+                  },
+                  icon: Icon(Icons.edit),
+                ),
+                IconButton(
+                  onPressed: () {
+                    ref.read(itemProvider.notifier).deleteItem(currentItem.id);
+                  },
+                  icon: Icon(Icons.delete),
+                ),
+              ],
+            ),
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
